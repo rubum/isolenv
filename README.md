@@ -45,25 +45,40 @@ run:
   command: "python3 /app/main.py"
 ```
 
-## Running locally
+## Installation & Usage
 
-Isolenv is built with Rust. To run the parser with an example configuration:
+Isolenv is built with Rust. You can compile a highly optimized executable directly from the source code.
+
+### 1. Build and Run Locally
+You can compile the release file and execute it directly from the `target` folder:
 
 ```bash
 # Clone the repository and navigate into the project directory
 cd Isolenv
 
-# Run the Isolenv executable to spin up the environment
-isolenv spin up --config examples/python_env.yaml
+# Build the release executable
+cargo build --release
 
-# Alternatively, since --config is a global argument, you can place it before the subcommand:
-isolenv -c examples/python_env.yaml spin up
+# Run the local executable directly
+./target/release/isolenv spin up --config examples/python_env.yaml
+```
+
+### 2. Install Globally (Recommended)
+Since Isolenv is an engine you will likely use across many projects and folders, you can install the CLI globally onto your system using Cargo. 
+
+Just run this command from the `Isolenv` directory:
+```bash
+cargo install --path .
+```
+
+Once installed, you will be able to run it from absolutely anywhere on your system simply by typing:
+```bash
+isolenv spin up --config examples/python_env.yaml
 ```
 
 ### Global Configuration Argument
-Fortunately, because Isolenv's CLI is built on `clap`, you don't actually have to choose! We defined `--config` as a global argument on the top-level CLI struct.
+Fortunately, because Isolenv's CLI is built on `clap`, we defined `--config` as a global argument on the top-level CLI struct. This means the CLI natively supports both positions:
 
-If we make it global, the CLI natively supports both positions:
 ```bash
 isolenv -c examples/python_env.yaml spin up
 isolenv spin up -c examples/python_env.yaml
