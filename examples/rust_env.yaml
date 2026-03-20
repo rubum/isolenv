@@ -1,0 +1,24 @@
+version: "1.0"
+environment:
+  name: "rust-builder"
+  base_image: "rust:1.75"
+  env_vars:
+    CARGO_HOME: "/usr/local/cargo"
+    RUSTUP_HOME: "/usr/local/rustup"
+    
+dependencies:
+  system:
+    - cmake
+    - pkg-config
+    - libssl-dev
+  rust:
+    - cargo-watch
+    - cargo-edit
+    - cargo-audit
+    
+setup:
+  - rustup component add clippy rustfmt
+  - echo "Cargo environment optimized"
+  
+run:
+  command: "cargo run --release"

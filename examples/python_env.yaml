@@ -1,0 +1,25 @@
+version: "1.0"
+environment:
+  name: "python-data-science"
+  base_image: "ubuntu:22.04"
+  env_vars:
+    PYTHONUNBUFFERED: "1"
+    MODEL_PATH: "/app/models"
+    
+dependencies:
+  system:
+    - build-essential
+    - python3-dev
+    - python3-pip
+  python:
+    - numpy
+    - pandas
+    - scikit-learn
+    
+setup:
+  - echo "Setting up data science environment"
+  - mkdir -p /app/models
+  - mkdir -p /app/data
+  
+run:
+  command: "python3 -c \"import numpy; print('Successfully initialized environment and imported numpy!')\""
